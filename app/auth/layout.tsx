@@ -4,7 +4,7 @@ import "../globals.css";
 
 export const metadata: Metadata = {
 	title: "Password Keeper",
-	description: "Authorization Page",
+	description: "Login or Register",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<main className="flex justify-center items-center w-full h-screen">
+		<main className="flex justify-center items-start w-full h-screen">
 			{children}
 		</main>
 	)
