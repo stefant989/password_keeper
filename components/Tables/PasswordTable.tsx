@@ -1,4 +1,3 @@
-import { MoreVertical } from "lucide-react"
 import {
 	Table,
 	TableBody,
@@ -7,18 +6,11 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table"
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { BasePassword, PasswordTableProps } from "@/lib/types"
-
-
+import DropdownList from "../DropdownList/DropdownList"
 
 const PasswordTable = <T extends BasePassword>({ passwords }: PasswordTableProps<T>) => {
+	if (!passwords.length) return <div className="text-slate-400 size-8 w-full flex justify-center">There are no passwords in the database</div>
 	return (
 		<Table>
 			<TableHeader>
@@ -38,14 +30,7 @@ const PasswordTable = <T extends BasePassword>({ passwords }: PasswordTableProps
 						<TableCell>{password.username}</TableCell>
 						<TableCell>**********</TableCell>
 						<TableCell>
-							<DropdownMenu>
-								<DropdownMenuTrigger><MoreVertical /></DropdownMenuTrigger>
-								<DropdownMenuContent>
-									<DropdownMenuItem>Edit</DropdownMenuItem>
-									<DropdownMenuSeparator />
-									<DropdownMenuItem>Delete</DropdownMenuItem>
-								</DropdownMenuContent>
-							</DropdownMenu>
+							<DropdownList id={password.id} />
 						</TableCell>
 					</TableRow>
 				))}

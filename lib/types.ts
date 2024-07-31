@@ -10,9 +10,18 @@ export type BasePassword = {
 	url: string,
 	email: string,
 	username: string,
-	password: string
+	password: string,
+	createdAt: Date,
+	updatedAt: Date
 }
 
 export type PasswordTableProps<T extends BasePassword> = {
 	passwords: T[]
+}
+
+export type PasswordFormProps = {
+	url: string,
+	email: string,
+	username: string,
+	password: string,
 }
