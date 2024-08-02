@@ -1,6 +1,4 @@
-import Link from "next/link"
-
-import { Button } from "@/components/ui/button"
+'use client'
 import {
 	Card,
 	CardContent,
@@ -10,8 +8,13 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useFormState } from "react-dom"
+import SubmitButton from "../SubmitButton/SubmitButton"
 
-export function LoginForm() {
+export function LoginForm({ actionProp }: {
+	actionProp: any
+}) {
+	const [error, action] = useFormState(actionProp, {})
 	return (
 		<Card className="mx-auto max-w-sm">
 			<CardHeader>
@@ -21,12 +24,13 @@ export function LoginForm() {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<div className="grid gap-4">
+				<form action={action} className="grid gap-4">
 					<div className="grid gap-2">
 						<Label htmlFor="email">Email</Label>
 						<Input
 							id="email"
 							type="email"
+							name="email"
 							placeholder="m@example.com"
 							required
 						/>
@@ -35,12 +39,18 @@ export function LoginForm() {
 						<div className="flex items-center">
 							<Label htmlFor="password">Password</Label>
 						</div>
-						<Input id="password" type="password" required />
+						<Input
+							id="password"
+							type="password"
+							name="password"
+							required
+						/>
 					</div>
-					<Button type="submit" className="w-full">
-						Login
-					</Button>
-				</div>
+					<SubmitButton
+						pendingLabel="..."
+						label="Sign up"
+					/>
+				</form>
 			</CardContent>
 		</Card>
 	)

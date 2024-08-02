@@ -2,7 +2,7 @@
 import React, { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from "next/link"
-import { ROUTES } from "@/lib/routes"
+import { PROTECTED_ROUTES } from "@/lib/routes"
 import { MoreVertical } from "lucide-react"
 import {
 	DropdownMenu,
@@ -20,7 +20,7 @@ const DropdownList = ({ id }: { id: number }) => {
 		<DropdownMenu>
 			<DropdownMenuTrigger><MoreVertical /></DropdownMenuTrigger>
 			<DropdownMenuContent>
-				<DropdownMenuItem><Link href={`${ROUTES.EDIT_PASSWORD}/${id}`}>Edit</Link></DropdownMenuItem>
+				<DropdownMenuItem><Link href={`${PROTECTED_ROUTES.EDIT_PASSWORD}/${id}`}>Edit</Link></DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
 					disabled={isPending}

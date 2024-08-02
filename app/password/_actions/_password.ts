@@ -1,7 +1,9 @@
 'use server'
 
 import { db } from "@/db/db"
+import { decrypt } from "@/lib/session"
 import { revalidatePath } from "next/cache"
+import { cookies } from "next/headers"
 import { notFound, redirect } from "next/navigation"
 import { z } from 'zod'
 
@@ -17,6 +19,13 @@ const updatePasswordSchema = passwordSchema.partial()
 export const addPassword = async (prevState: unknown, formData: FormData) => {
 	const result = passwordSchema.safeParse(Object.fromEntries(formData.entries()))
 
+	const cookie = cookies().get('session')?.value
+	const session = await decrypt(cookie)
+
+	if (!session?.userId) {
+		return 'userID does not exist in the session token'
+	}
+
 	if (result.success === false) {
 		return result.error.formErrors.fieldErrors
 	}
@@ -24,7 +33,8 @@ export const addPassword = async (prevState: unknown, formData: FormData) => {
 	const values = result.data
 	await db.password.create({
 		data: {
-			...values
+			...values,
+			userId: Number(session.userId)
 		}
 	})
 
@@ -33,9 +43,14 @@ export const addPassword = async (prevState: unknown, formData: FormData) => {
 
 export const updatePassword = async (id: string, prevState: unknown, formData: FormData) => {
 	const result = updatePasswordSchema.safeParse(Object.fromEntries(formData.entries()))
-
+	const cookie = cookies().get('session')?.value
+	const session = await decrypt(cookie)
 	if (result.success === false) {
 		return result.error.formErrors.fieldErrors
+	}
+
+	if (!session?.userId) {
+		return 'userID does not exist in the session token'
 	}
 
 	const values = result.data
@@ -47,7 +62,8 @@ export const updatePassword = async (id: string, prevState: unknown, formData: F
 	await db.password.update({
 		where: { id: parseInt(id) },
 		data: {
-			...values
+			...values,
+			userId: Number(session.userId)
 		}
 	})
 

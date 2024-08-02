@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import Link from 'next/link'
-import { ROUTES } from '@/lib/routes'
+import { PROTECTED_ROUTES } from '@/lib/routes'
 import { ArrowLeft } from 'lucide-react'
 import { PasswordFormProps } from '@/lib/types'
 import SubmitButton from '../SubmitButton/SubmitButton'
@@ -23,7 +23,7 @@ const PasswordForm = ({ password, actionProp }: {
 	return (
 		<Card className="mx-auto max-w-sm">
 			<CardHeader>
-				<Link href={ROUTES.HOME} className='mb-5 flex'><ArrowLeft className='mr-2' /> Go Back</Link>
+				<Link href={PROTECTED_ROUTES.HOME} className='mb-5 flex'><ArrowLeft className='mr-2' /> Go Back</Link>
 				<CardTitle className="text-2xl">Password</CardTitle>
 				<CardDescription>
 					Enter your password
@@ -78,7 +78,10 @@ const PasswordForm = ({ password, actionProp }: {
 						/>
 						{error.password && <div className='text-destructive'>{error.password}</div>}
 					</div>
-					<SubmitButton />
+					<SubmitButton
+						pendingLabel='Saving...'
+						label='Save'
+					/>
 				</form>
 			</CardContent>
 		</Card>

@@ -3,7 +3,10 @@ import React from 'react'
 import { useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button'
 
-const SubmitButton = () => {
+const SubmitButton = ({ pendingLabel, label }: {
+	pendingLabel: string,
+	label: string
+}) => {
 	const { pending } = useFormStatus()
 	return (
 		<Button
@@ -12,7 +15,7 @@ const SubmitButton = () => {
 			type='submit'
 			disabled={pending}
 		>
-			{pending ? 'Saving...' : 'Save'}
+			{pending ? pendingLabel : label}
 		</Button>
 	)
 }

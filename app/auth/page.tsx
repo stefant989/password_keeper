@@ -1,3 +1,4 @@
+'use client'
 import { LoginForm } from "@/components/Forms/LoginForm"
 import { RegisterForm } from "@/components/Forms/RegisterForm"
 import {
@@ -6,6 +7,7 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@/components/ui/tabs"
+import { login, register } from "./_actions/_auth"
 
 const AuthPage = () => {
 	return (
@@ -15,10 +17,10 @@ const AuthPage = () => {
 				<TabsTrigger value="register">Register</TabsTrigger>
 			</TabsList>
 			<TabsContent value="login">
-				<LoginForm />
+				<LoginForm actionProp={login} />
 			</TabsContent>
 			<TabsContent value="register">
-				<RegisterForm />
+				<RegisterForm actionProp={register} />
 			</TabsContent>
 		</Tabs>
 	)
