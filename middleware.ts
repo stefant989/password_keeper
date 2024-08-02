@@ -11,8 +11,14 @@ export async function middleware(request: NextRequest) {
 	const isProtectedRoute = privateRoutes.includes(path)
 	const isPublicRoute = publicRoutes.includes(path)
 
+
+
 	const cookie = cookies().get('session')?.value
 	const session = await decrypt(cookie)
+
+	if (!isPublicRoute && !session?.userId) {
+		return NextResponse.redirect(new URL(PUBLIC_ROUTES.AUTH, request.nextUrl))
+	}
 
 	if (isProtectedRoute && !session?.userId) {
 		return NextResponse.redirect(new URL(PUBLIC_ROUTES.AUTH, request.nextUrl))
@@ -26,6 +32,6 @@ export async function middleware(request: NextRequest) {
 
 }
 
-// export const config = {
-// 	matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
-// }
+export const config = {
+	matcher: '/',
+}
