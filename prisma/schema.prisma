@@ -32,9 +32,3 @@ model Password {
     updatedAt DateTime @updatedAt
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
-model Session {
-    id        Int      @id @default(autoincrement())
-    userId    Int
-    expiresAt DateTime @default(now())
-}

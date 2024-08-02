@@ -40,7 +40,7 @@ export const register = async (prevState: unknown, formData: FormData) => {
 	const user = await db.user.findUnique({ where: { email: userData.email } })
 
 	if (!user) {
-		return 'Something went wrong! Please go to the login page'
+		return 'Something went wrong! Please go to the login tab'
 	}
 
 	const userId = user.id.toString()
