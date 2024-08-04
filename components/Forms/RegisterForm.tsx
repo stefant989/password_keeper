@@ -14,7 +14,12 @@ import { useFormState } from "react-dom"
 import SubmitButton from "../SubmitButton/SubmitButton"
 
 export function RegisterForm({ actionProp }: {
-	actionProp?: any
+	actionProp: (prevState: unknown, formData: FormData) => Promise<{
+		password?: string[] | undefined;
+		email?: string[] | undefined;
+		firstName?: string[] | undefined;
+		lastName?: string[] | undefined;
+	} | { message: string } | undefined>
 }) {
 	const [error, action] = useFormState(actionProp, {})
 	return (

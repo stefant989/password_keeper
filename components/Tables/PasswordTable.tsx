@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table"
 import { BasePassword, PasswordTableProps } from "@/lib/types"
 import DropdownList from "../DropdownList/DropdownList"
+import { randomStars } from "@/lib/utils"
 
 const PasswordTable = <T extends BasePassword>({ passwords }: PasswordTableProps<T>) => {
 	if (!passwords.length) return <div className="text-slate-400 size-8 w-full flex justify-center">There are no passwords in the database</div>
@@ -28,7 +29,7 @@ const PasswordTable = <T extends BasePassword>({ passwords }: PasswordTableProps
 						<TableCell className="font-medium">{password.url}</TableCell>
 						<TableCell>{password.email}</TableCell>
 						<TableCell>{password.username}</TableCell>
-						<TableCell>**********</TableCell>
+						<TableCell>{randomStars()}</TableCell>
 						<TableCell>
 							<DropdownList id={password.id} />
 						</TableCell>

@@ -8,12 +8,10 @@ const EditPasswordPage = async ({ params: { id } }: {
 }) => {
 	const password = await db.password.findUnique({ where: { id: parseInt(id) } })
 	return (
-		<div>
-			<PasswordForm
-				password={password}
-				actionProp={updatePassword.bind(null, id)}
-			/>
-		</div>
+		<PasswordForm
+			password={password}
+			actionProp={updatePassword.bind(null, id)}
+		/>
 	)
 }
 

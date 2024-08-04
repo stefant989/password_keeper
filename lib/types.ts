@@ -25,3 +25,8 @@ export type PasswordFormProps = {
 	username: string,
 	password: string,
 }
+
+export type Encrypt = {
+	userId: string,
+	expiresAt: Date
+}

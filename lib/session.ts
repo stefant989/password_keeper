@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers'
 import { jwtVerify, SignJWT } from "jose"
 import { redirect } from "next/navigation"
+import { PUBLIC_ROUTES } from './routes';
+import { Encrypt } from './types';
 
 const JWT_SECRET = process.env.JWT_SECRET || ''
 const key = new TextEncoder().encode(JWT_SECRET);
@@ -20,7 +22,7 @@ export const createSession = async (userId: string) => {
 	redirect('/')
 }
 
-export const encrypt = async (payload: any) => {
+export const encrypt = async (payload: Encrypt) => {
 	return new SignJWT(payload)
 		.setProtectedHeader({ alg: 'HS256' })
 		.setIssuedAt()
@@ -44,7 +46,7 @@ export const veridySession = async () => {
 	const session = await decrypt(cookie)
 
 	if (!session?.userId) {
-		redirect('/auth')
+		redirect(PUBLIC_ROUTES.AUTH)
 	}
 
 	return { isAuth: true, userId: Number(session.userId) }
@@ -52,5 +54,5 @@ export const veridySession = async () => {
 
 export const deleteSession = () => {
 	cookies().delete('session')
-	redirect('/auth')
+	redirect(PUBLIC_ROUTES.AUTH)
 }

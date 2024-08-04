@@ -4,11 +4,9 @@ import { addPassword } from '../_actions/_password'
 
 const AddPasswordPage = () => {
 	return (
-		<div>
-			<PasswordForm
-				actionProp={addPassword}
-			/>
-		</div>
+		<PasswordForm
+			actionProp={addPassword}
+		/>
 	)
 }
 

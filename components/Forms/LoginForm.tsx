@@ -12,7 +12,7 @@ import { useFormState } from "react-dom"
 import SubmitButton from "../SubmitButton/SubmitButton"
 
 export function LoginForm({ actionProp }: {
-	actionProp: any
+	actionProp: (prevState: unknown, formData: FormData) => Promise<{ email?: string[] | undefined; password?: string[] | undefined; } | { message: string; } | undefined>
 }) {
 	const [error, action] = useFormState(actionProp, {})
 	return (
